@@ -64,7 +64,7 @@ finish_cmp
     NOP
 
 stop	
-    B		stop                        ; finish selection sort
+    B		stop                    ; finish selection sort
 
 ;	pre defined data
 pre_sort        DCD	24, 10, 56, 62, 50, 43, 21, 17, 35, 55
