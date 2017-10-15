@@ -1,32 +1,18 @@
-    AREA myCode, CODE
-        ENTRY
-        EXPORT __main
+        AREA myData, DATA, READWRITE
+array   DCD 24, 10, 56, 62, 50, 43, 21, 17, 35, 55
+len		EQU 10
+	
+	AREA myCode, CODE
+		ENTRY
+        EXPORT main
             
-__main
-
-init	
-    ; array = [24, 10, 56, 62, 50, 43, 21, 17, 35, 55]
-    ; initial array
-    ; copy pre defined array into RAM (READWRITE area)
-    ADR		r0, pre_sort
-    LDR		r2, =array
-    ADR		r3, end_pre_sort
-    MOV		r4, #0                  ; array length counter
-    
-init_array
-    LDR		r1, [r0]
-    STRB	r1, [r2], #4
-    ADD		r0, r0, #4
-    ADD		r4, r4, #1
-    CMP		r0, r3
-    BLT		init_array
+main
     NOP
-    
     ; store array address in r0
     LDR		r0, =array
     
     ; init variable
-    MOV		r1, r4                  ; array len (n)
+    MOV		r1, #len                ; array len (n)
     SUB		r2, r1, #1              ; array len - 1 (n-1)
     MOV		r3, #0                  ; i
     MOV		r4, #0                  ; j
@@ -65,13 +51,5 @@ finish_cmp
 
 stop	
     B		stop                    ; finish selection sort
-
-;	pre defined data
-pre_sort        DCD	24, 10, 56, 62, 50, 43, 21, 17, 35, 55
-end_pre_sort    DCD 0
-
-
-    AREA myData, DATA, READWRITE
-array			DCD 0
 
     END
